@@ -1,6 +1,7 @@
 package fr.pokerplanning.config;
 
 import feign.RequestInterceptor;
+import feign.codec.ErrorDecoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,5 +26,10 @@ public class FeignClientConfiguration {
             String authHeader = "Basic " + encodedAuth;
             requestTemplate.header("Authorization", authHeader);
         };
+    }
+
+    @Bean
+    public ErrorDecoder errorDecoder() {
+        return new FeignErrorDecoder();
     }
 }
